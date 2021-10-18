@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Pro Valyuta Kurslari</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="home_page">Bosh oyna</string>
+    <string name="calculator_page">Kalkulator</string>
+    <string name="all_currencies_page">Barcha valyutalar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share">Ulashish</string>
+    <string name="about_program">Dastur haqida</string>
+</resources>
