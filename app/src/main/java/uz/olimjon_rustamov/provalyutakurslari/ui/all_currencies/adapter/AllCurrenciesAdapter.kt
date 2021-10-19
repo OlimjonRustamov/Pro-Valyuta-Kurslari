@@ -38,6 +38,11 @@ class AllCurrenciesAdapter(var currencies: List<CurrencyResponse>, var onItemCli
 
     override fun getItemCount(): Int = currencies.size
 
+    fun updateList(temp: MutableList<CurrencyResponse>) {
+        currencies = temp
+        notifyDataSetChanged()
+    }
+
     interface OnItemClick {
         fun onItemClickListener(position: Int)
     }

@@ -48,7 +48,7 @@ class CalculatorFragment : Fragment() {
 
         loadCurrenciesAdapter()
 
-
+        exchange()
 
         return binding.root
     }
@@ -138,6 +138,20 @@ class CalculatorFragment : Fragment() {
             buyTitle.visibility = View.VISIBLE
             sellTitle.visibility = View.VISIBLE
             dollar.visibility = View.VISIBLE
+        }
+    }
+    private fun exchange() {
+        binding.exchange.setOnClickListener {
+            val pos1 = binding.spinner1.selectedItemPosition
+            val pos2 = binding.spinner2.selectedItemPosition
+
+            binding.spinner1.setSelection(pos2)
+            binding.spinner2.setSelection(pos1)
+
+            val betweenConvert = fromConvert
+            fromConvert = toConvert
+            toConvert = betweenConvert
+            editTextChanged(binding.edit.text)
         }
     }
 }
