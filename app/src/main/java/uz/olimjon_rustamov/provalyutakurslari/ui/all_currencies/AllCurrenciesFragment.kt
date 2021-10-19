@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.olimjon_rustamov.provalyutakurslari.R
 import uz.olimjon_rustamov.provalyutakurslari.databinding.FragmentAllCurrenciesBinding
@@ -39,7 +40,13 @@ class AllCurrenciesFragment : Fragment() {
 
     private fun loadAdapter() {
         val rv = binding.allCurrenciesRv
-        val adapter = AllCurrenciesAdapter(currencies)
+        val adapter = AllCurrenciesAdapter(currencies, object : AllCurrenciesAdapter.OnItemClick {
+            override fun onItemClickListener(position: Int) {
+                val bundle = Bundle()
+                bundle.putInt("position", position)
+                findNavController().navigate(R.id.calculator_fragment, bundle)
+            }
+        })
         rv.layoutManager = LinearLayoutManager(binding.root.context)
         rv.adapter = adapter
     }
@@ -47,6 +54,7 @@ class AllCurrenciesFragment : Fragment() {
     private fun loadCurrencies() {
         myViewModel.getCurrencies().observe(viewLifecycleOwner, Observer {
             currencies = it
+            binding.allCurrenciesProgress.visibility=View.GONE
             loadAdapter()
         })
 

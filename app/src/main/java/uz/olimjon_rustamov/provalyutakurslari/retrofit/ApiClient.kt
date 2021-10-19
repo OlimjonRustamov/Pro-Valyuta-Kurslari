@@ -4,13 +4,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL="https://nbu.uz/uz/exchange-rates/"
-    fun getRetrofit(): Retrofit {
+    fun getRetrofitAll(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl("https://nbu.uz/uz/exchange-rates/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    val apiClient= getRetrofit().create(ApiService::class.java)
+    val apiClient= getRetrofitAll().create(ApiService::class.java)
 }

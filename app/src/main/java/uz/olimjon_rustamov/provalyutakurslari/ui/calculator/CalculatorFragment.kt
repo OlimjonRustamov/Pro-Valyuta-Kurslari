@@ -1,60 +1,84 @@
 package uz.olimjon_rustamov.provalyutakurslari.ui.calculator
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import uz.olimjon_rustamov.provalyutakurslari.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import uz.olimjon_rustamov.provalyutakurslari.databinding.FragmentCalculatorBinding
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.ApiClient
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.model.CurrencyResponse
+import uz.olimjon_rustamov.provalyutakurslari.ui.calculator.adapter.SpinnerAdapter
+import uz.olimjon_rustamov.provalyutakurslari.viewmodel.MyViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CalculatorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalculatorFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var currencies: ArrayList<CurrencyResponse>
+    private var position = -1
+    private lateinit var binding: FragmentCalculatorBinding
+    lateinit var spinnerAdapter1: SpinnerAdapter
+    lateinit var spinnerAdapter2: SpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            position = it.getInt("position")
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculator, container, false)
+    ): View {
+
+        binding = FragmentCalculatorBinding.inflate(layoutInflater, container, false)
+        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        loadCurrenciesAdapter()
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalculatorFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalculatorFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun loadCurrenciesAdapter() {
+        myViewModel.getCurrencies().observe(viewLifecycleOwner, Observer {
+            currencies = it as ArrayList<CurrencyResponse>
+            currencies.add(CurrencyResponse("1", "UZS", "null", "1", "1", ""))
+
+            spinnerAdapter1 = SpinnerAdapter(currencies)
+            spinnerAdapter2 = SpinnerAdapter(currencies)
+            binding.spinner1.adapter = spinnerAdapter1
+            binding.spinner2.adapter = spinnerAdapter2
+
+            if (position != -1) {
+                binding.spinner1.setSelection(position)
             }
+            binding.spinner2.setSelection(currencies.size - 1)
+
+            setVisiblities()
+        })
+    }
+
+    private fun setVisiblities() {
+        binding.apply {
+            progressCalculator.visibility = View.GONE
+            spinner1.visibility = View.VISIBLE
+            spinner2.visibility = View.VISIBLE
+            exchange.visibility = View.VISIBLE
+            edit.visibility = View.VISIBLE
+            sell.visibility = View.VISIBLE
+            buy.visibility = View.VISIBLE
+            buyTitle.visibility = View.VISIBLE
+            sellTitle.visibility = View.VISIBLE
+            dollar.visibility = View.VISIBLE
+        }
     }
 }
