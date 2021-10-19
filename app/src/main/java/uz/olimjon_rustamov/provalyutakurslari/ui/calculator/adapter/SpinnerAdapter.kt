@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import com.squareup.picasso.Picasso
 import uz.olimjon_rustamov.provalyutakurslari.R
 import uz.olimjon_rustamov.provalyutakurslari.databinding.ItemSpinnerBinding
-import uz.olimjon_rustamov.provalyutakurslari.retrofit.model.CurrencyResponse
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.model.CurrencyResponse
 
 class SpinnerAdapter(var data: ArrayList<CurrencyResponse>) : BaseAdapter() {
 

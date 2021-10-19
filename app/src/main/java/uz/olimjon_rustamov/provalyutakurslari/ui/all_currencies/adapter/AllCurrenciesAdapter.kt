@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import uz.olimjon_rustamov.provalyutakurslari.R
 import uz.olimjon_rustamov.provalyutakurslari.databinding.ItemCurrencyBinding
-import uz.olimjon_rustamov.provalyutakurslari.retrofit.model.CurrencyResponse
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.model.CurrencyResponse
 
 class AllCurrenciesAdapter(var currencies: List<CurrencyResponse>, var onItemClick: OnItemClick) :
     RecyclerView.Adapter<AllCurrenciesAdapter.Vh>() {

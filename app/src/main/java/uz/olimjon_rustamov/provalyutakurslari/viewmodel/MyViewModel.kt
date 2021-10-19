@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uz.olimjon_rustamov.provalyutakurslari.retrofit.ApiClient
-import uz.olimjon_rustamov.provalyutakurslari.retrofit.model.CurrencyResponse
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.model.CurrencyResponse
 
 class MyViewModel : ViewModel() {
     var liveData = MutableLiveData<List<CurrencyResponse>>()

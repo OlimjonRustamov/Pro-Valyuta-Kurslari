@@ -11,14 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.olimjon_rustamov.provalyutakurslari.R
 import uz.olimjon_rustamov.provalyutakurslari.databinding.FragmentAllCurrenciesBinding
-import uz.olimjon_rustamov.provalyutakurslari.retrofit.model.CurrencyResponse
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.dao.CurrencyDao
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.database.AppDatabase
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.model.CurrencyResponse
 import uz.olimjon_rustamov.provalyutakurslari.ui.all_currencies.adapter.AllCurrenciesAdapter
 import uz.olimjon_rustamov.provalyutakurslari.viewmodel.MyViewModel
 
 class AllCurrenciesFragment : Fragment() {
 
     private lateinit var binding: FragmentAllCurrenciesBinding
-
+    private lateinit var dao:CurrencyDao
     private lateinit var myViewModel: MyViewModel
     private lateinit var currencies: List<CurrencyResponse>
 
@@ -32,6 +34,7 @@ class AllCurrenciesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAllCurrenciesBinding.inflate(layoutInflater)
+        dao=AppDatabase.get.getDatabase().getDao()
         initViewModel()
         loadCurrencies()
 
@@ -56,6 +59,10 @@ class AllCurrenciesFragment : Fragment() {
             currencies = it
             binding.allCurrenciesProgress.visibility=View.GONE
             loadAdapter()
+
+            it.forEach{
+                dao.insertCurrency(it)
+            }
         })
 
     }
