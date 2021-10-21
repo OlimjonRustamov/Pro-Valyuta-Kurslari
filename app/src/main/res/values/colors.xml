@@ -10,4 +10,5 @@
 
     <color name="my_grey_color">#E5E5E5</color>
     <color name="green">#4FA35B</color>
+    <color name="tab_color">#4D000000</color>
 </resources>
