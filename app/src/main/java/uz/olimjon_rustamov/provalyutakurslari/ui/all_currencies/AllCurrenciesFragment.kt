@@ -89,6 +89,7 @@ class AllCurrenciesFragment : Fragment() {
         txtSearch.addTextChangedListener {
             filter(it.toString())
         }
+        super.onCreateOptionsMenu(menu, inflater)
     }
     private fun filter(query: String) {
         val temp: MutableList<CurrencyResponse> = ArrayList()

@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uz.olimjon_rustamov.provalyutakurslari.retrofit.ApiClient
+import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.database.AppDatabase
 import uz.olimjon_rustamov.provalyutakurslari.retrofit.room.model.CurrencyResponse
 
 class MyViewModel : ViewModel() {
@@ -25,7 +26,7 @@ class MyViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<CurrencyResponse>>?, t: Throwable?) {
-                Log.d("TTTT", "onFailure: ${t?.message}")
+                liveData.value=AppDatabase.get.getDatabase().getDao().getCurrencies()
             }
 
         })

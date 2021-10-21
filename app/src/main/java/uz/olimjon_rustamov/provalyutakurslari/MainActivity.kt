@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         //disable night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         //*********
-
+        setSupportActionBar(binding.toolbarMain)
         setupNavController()
     }
 
