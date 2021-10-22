@@ -11,6 +11,9 @@ interface CurrencyDao {
     @Update
     fun updateCurrency(currency:CurrencyResponse)
 
-    @Query("select * from currency")
-    fun getCurrencies():List<CurrencyResponse>
+    @Query("select * from currency where currency.date=:date")
+    fun getCurrenciesLast(date:String):List<CurrencyResponse>
+
+    @Query("select * from currency where currency.code=:code")
+    fun getAllByCode(code: String): List<CurrencyResponse>
 }

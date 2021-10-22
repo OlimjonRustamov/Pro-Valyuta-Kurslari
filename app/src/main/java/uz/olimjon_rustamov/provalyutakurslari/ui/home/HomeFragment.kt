@@ -56,9 +56,7 @@ class HomeFragment : Fragment() {
             binding.text.visibility = View.VISIBLE
 
             it.forEach {
-                dao.insertCurrency(it)
                 titleList.add(it.code)
-
             }
             viewPagerAdapter = CurrencyViewPagerAdapter(it as ArrayList, childFragmentManager)
             binding.vpCard.adapter = viewPagerAdapter
@@ -84,14 +82,16 @@ class HomeFragment : Fragment() {
             })
         })
     }
-    private fun rvAdapter(currency: CurrencyResponse) {
-//        val data = getDao.getCurrencyByDateRv(
-//            currency.date!!,
-//            currency.code!!
-//        ).reversed()
-//        currencyRvAdapter.setAdapter(data)
-//        currencyRvAdapter.notifyDataSetChanged()
-//        binding.rv.adapter = currencyRvAdapter
+    private fun rvAdapter(currency: CurrencyResponse?) {
+        val data = currency?.code?.let { dao.getAllByCode(it).reversed() }
+        currencyRvAdapter= CurrencyRvAdapter()
+        if (data?.size != 0) {
+            currencyRvAdapter.setAdapter(data!!)
+        } else {
+            currencyRvAdapter.setAdapter(currencies.subList(0,1))
+        }
+        currencyRvAdapter.notifyDataSetChanged()
+        binding.rv.adapter = currencyRvAdapter
     }
 
     private fun setTabs() {
@@ -133,7 +133,4 @@ class HomeFragment : Fragment() {
 
         })
     }
-
-
-
 }

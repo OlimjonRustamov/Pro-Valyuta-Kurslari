@@ -63,10 +63,6 @@ class AllCurrenciesFragment : Fragment() {
             currencies = it
             binding.allCurrenciesProgress.visibility=View.GONE
             loadAdapter()
-
-            it.forEach{
-                dao.insertCurrency(it)
-            }
         })
 
     }

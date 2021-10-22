@@ -12,11 +12,10 @@ import java.io.Serializable
 class CurrencyResponse :Serializable{
     @ColumnInfo
     var cb_price: String? = null
-//
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int? = null
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
+
     @NonNull
     var code: String=""
 
@@ -41,14 +40,15 @@ class CurrencyResponse :Serializable{
         this.title = title
     }
 
-//    constructor(cb_price: String?, id: Int?, code: String?, date: String?, nbu_buy_price: String?, nbu_cell_price: String?, title: String?) {
-//        this.cb_price = cb_price
-//        this.id = id
-//        this.code = code
-//        this.date = date
-//        this.nbu_buy_price = nbu_buy_price
-//        this.nbu_cell_price = nbu_cell_price
-//        this.title = title
-//    }
+    @Ignore
+    constructor(cb_price: String?, id: Int?, code: String, date: String?, nbu_buy_price: String?, nbu_cell_price: String?, title: String?) {
+        this.cb_price = cb_price
+        this.id = id
+        this.code = code
+        this.date = date
+        this.nbu_buy_price = nbu_buy_price
+        this.nbu_cell_price = nbu_cell_price
+        this.title = title
+    }
 
 }

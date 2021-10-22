@@ -1,8 +1,10 @@
 package uz.olimjon_rustamov.provalyutakurslari
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.marginTop
@@ -46,12 +48,19 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
     fun shareProgram(view: View) {
-        //share code here
-        Snackbar.make(view,"Share", Snackbar.LENGTH_LONG).show()
+        binding.drawerLayout.closeDrawers()
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "https://github.com/OlimjonRustamov/Pro-Valyuta-Kurslari"
+        )
+        startActivity(Intent.createChooser(shareIntent, "Share to"))
     }
 
     fun aboutProgram(view: View) {
-        //share code here
-        Snackbar.make(view,"About", Snackbar.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, "Info!", Toast.LENGTH_SHORT).show()
+        binding.drawerLayout.closeDrawers()
     }
 }
